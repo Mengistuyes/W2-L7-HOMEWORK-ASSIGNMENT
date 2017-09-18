@@ -4,50 +4,56 @@ import java.util.Arrays;
 
 public class MyTable {
 
-	Entry[] entries ={new Entry('a',""),new Entry('b',""),new Entry('c',""),new Entry('d',""),new Entry('e',""),new Entry('f',""),new Entry('g',""),new Entry('h',""),new Entry('i',""),new Entry('j',""),new Entry('k',""),new Entry('l',""),new Entry('m',""),new Entry('n',""),new Entry('o',""),new Entry('p',""),new Entry('q',""),new Entry('r',""),new Entry('s',""),new Entry('t',""),new Entry('u',""),new Entry('v',""),new Entry('w',""),new Entry('x',""),new Entry('y',""),new Entry('z',"")};
+	Entry[] entries = new Entry[26];
 	
-	public void add(char c, String s) {
-		
-	int index=c-'a';
-	int count=0;
-	if(index>0 && index<26)
+	public void add(char c, String s) 
 	{
-		for(Entry e:entries)
+		
+		int index=c-'a';
+		if(index>=0 && index<26)
 		{
-			if(index==count)
-			{
-				e.setC(c);
-				e.setS(s);
-			}
-
-			count++;
-			System.out.println(e.toString());
+			entries[index]=new Entry(c,s);
 		}
-	 }	
-	
 	}
 	String get(char ch)
 	{
 		String name="";
 		int indexg=ch-'a';
-		int count=0;
+		int count1=0;
 		if(indexg>0 && indexg<26)
-		{
-	
-		for(Entry e:entries)
-		{
-			if(indexg==count)
+		{	
+			for(Entry e:entries)
 			{
-				name=e.getS().toString();
+				if(e.getC()==ch)
+				{
+					name=e.toString();
+					break;
+				}
 			}
-
-			count++;
-			System.out.println(e.toString());
-		}
 	  }
 		return name;
 	}
 	
+	@Override
+	public String toString() {
+	//	return Arrays.toString(entries);
+		StringBuilder st=new StringBuilder();
+		char ch;
+		int index=97;
+		for(Entry e:entries)
+		{	
+			ch=(char)index;
+			if(e==null)
+			{
+				e=new Entry(ch," ");
+			}
+				st.append(e.getC() + "->" + e.getS() + "\n");
+				index++;
+		}
+		return st.toString();
+		
+	}
+
 	class Entry
 	{
 		private char c;
@@ -72,7 +78,7 @@ public class MyTable {
 		}
 		public String toString()
 		{
-			return this.c + "->" + this.s;
+			return this.c + "->" + this.s + "\n";
 			
 		}
 	}
